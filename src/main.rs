@@ -14,8 +14,11 @@ fn main() -> Result<(), Box<dyn Error>> {
     
     // SPI + RESET CONFIGURATION
     let spi = Spi::new(Bus::Spi0, SlaveSelect::Ss0, 8_000_000, Mode::Mode0)?;
-    let cs = Gpio::new()?.get(24)?.into_output();
-    let mut reset = Gpio::new()?.get(4)?.into_output();
+    let gpio = Gpio::new()?;
+    let cs = gpio.get(24)?.into_output();
+    let mut reset = gpio.get(4)?.into_output();
+
+    println!("Là on est bien !");
 
     // reset DW3000 module 
     thread::sleep(Duration::from_millis(500));
